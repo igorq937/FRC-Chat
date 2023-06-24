@@ -3,6 +3,7 @@
 
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <sys/select.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdio.h>
@@ -14,6 +15,6 @@ void new_socket_fd();
 void allow_reuse();
 void bind_socket(char *ip, int port);
 void listen_socket();
-int wait_for_connection();
+void wait_for_connection();
 
 #endif // SOCKET_H

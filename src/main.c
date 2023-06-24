@@ -18,16 +18,10 @@ int main(int argc, char **argv)
     allow_reuse();
     bind_socket(argv[1], atoi(argv[2]));
     listen_socket();
-    int conn_fd = wait_for_connection();
 
-    int n;
-    char buf[MAX_BUFFER_SIZE];
-    char response[] = "Hello World!";
-    while ((n = read(conn_fd, buf, sizeof(buf))) > 0)
+    while (1)
     {
-        debug_print("received %d bytes\n", n);
-        write(conn_fd, response, strlen(response));
-        close(conn_fd);
+        wait_for_connection();
     }
 
     exit(EXIT_SUCCESS);
