@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "util.h"
+#include "room.h"
 #include "socket.h"
 
 
@@ -18,6 +19,8 @@ int main(int argc, char **argv)
     allow_reuse();
     bind_socket(argv[1], atoi(argv[2]));
     listen_socket();
+
+    add_room("general", 10);
 
     while (1)
     {
