@@ -57,18 +57,15 @@ void handle_connection(int client_socket)
     check_error(n = recv(client_socket, buf, MAX_BUFFER_SIZE, 0));
     debug_print("received message '%.*s' from client [%d]\n", n-2, buf, client_socket);
 
-    if(strcmp(buf, "/exit\r\n") == 0) {
-        end_connection(client_socket);
-    }else{
-        //Aqui tem que ser feito o tratamento da mensagem recebida
-        send_message(client_socket, default_response);
-    }
-
+    execute_command(client_socket, buf);
+    send_message(client_socket, default_response);
 }
 
 void send_message(int client_socket, const char* message)
 {
-    debug_print("sending message '%s' to client [%d]\n", message, client_socket);
+    int n = strlen(message);
+    if(message[n-1] == '\n') n--;
+    debug_print("sending message '%.*s' to client [%d]\n", n, message, client_socket);
     send(client_socket, message, strlen(message), 0);
 }
 

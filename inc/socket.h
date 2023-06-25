@@ -8,6 +8,8 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <unistd.h>
+
+#include "command.h"
 #include "util.h"
 
 #define MAX_BUFFER_SIZE 4096
