@@ -4,6 +4,8 @@ int server_socket = -1;
 fd_set current_sockets, ready_sockets;
 int max_sockets_fd = -1;
 
+const char default_response[] = "\033[32m$> \033[0m";
+
 void new_socket_fd()
 {
     check_error(server_socket = socket(AF_INET, SOCK_STREAM, 0));
@@ -36,29 +38,45 @@ void listen_socket()
     debug_print("socket listening\n");
 }
 
-int accept_connection()
+void accept_connection()
 {
-    debug_print("waiting for connection...\n");
     struct sockaddr_in end_cli;
     socklen_t alen = sizeof(end_cli);
     int client_socket;
     check_error(client_socket = accept(server_socket, (struct sockaddr *)&end_cli, &alen));
-    debug_print("connection accepted from %s:%d\n", inet_ntoa(end_cli.sin_addr), ntohs(end_cli.sin_port));
-    return client_socket;
+    debug_print("connection accepted from [%d]\n", client_socket);
+    FD_SET(client_socket, &current_sockets);
+    if(client_socket > max_sockets_fd) max_sockets_fd = client_socket;
+    send_message(client_socket, default_response);
 }
 
-void handle_connection(int client_socket) {
-
-    debug_print("waiting for data...\n");
+void handle_connection(int client_socket)
+{
     char buf[MAX_BUFFER_SIZE];
-    char response[] = "Hello World!\n";
     int n;
     check_error(n = recv(client_socket, buf, MAX_BUFFER_SIZE, 0));
+    debug_print("received message '%.*s' from client [%d]\n", n-2, buf, client_socket);
 
-    //Aqui começa o tratamento da requisição
+    if(strcmp(buf, "/exit\r\n") == 0) {
+        end_connection(client_socket);
+    }else{
+        //Aqui tem que ser feito o tratamento da mensagem recebida
+        send_message(client_socket, default_response);
+    }
 
-    debug_print("received %d bytes\n", n);
-    send(client_socket, response, strlen(response), 0);
+}
+
+void send_message(int client_socket, const char* message)
+{
+    debug_print("sending message '%s' to client [%d]\n", message, client_socket);
+    send(client_socket, message, strlen(message), 0);
+}
+
+void end_connection(int client_socket)
+{
+    debug_print("connection closed for client [%d]\n", client_socket);
+    close(client_socket);
+    FD_CLR(client_socket, &current_sockets);
 }
 
 void wait_for_connection()
@@ -69,12 +87,9 @@ void wait_for_connection()
     for (int i = 0; i <= max_sockets_fd; i++) {
         if(FD_ISSET(i, &ready_sockets)) {
             if(i == server_socket) {
-                int client_socket = accept_connection();
-                FD_SET(client_socket, &current_sockets);
-                if(client_socket > max_sockets_fd) max_sockets_fd = client_socket;
+                accept_connection();      
             }else{
                 handle_connection(i);
-                FD_CLR(i, &current_sockets);
             }
         }
 	}

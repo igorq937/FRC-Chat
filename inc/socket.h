@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "util.h"
 
 #define MAX_BUFFER_SIZE 4096
@@ -16,5 +17,7 @@ void allow_reuse();
 void bind_socket(char *ip, int port);
 void listen_socket();
 void wait_for_connection();
+void send_message(int client_socket, const char* message);
+void end_connection(int client_socket);
 
 #endif // SOCKET_H
