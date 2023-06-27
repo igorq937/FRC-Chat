@@ -19,6 +19,7 @@ void allow_reuse();
 void bind_socket(char *ip, int port);
 void listen_socket();
 void wait_for_connection();
+void send_terminal_message(int client_socket);
 void send_message(int client_socket, const char* message);
 void end_connection(int client_socket);
 

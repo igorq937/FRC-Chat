@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     bind_socket(argv[1], atoi(argv[2]));
     listen_socket();
 
-    add_room("general", 10);
+    init_rooms();
 
     while (1)
     {

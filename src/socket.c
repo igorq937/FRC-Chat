@@ -4,7 +4,7 @@ int server_socket = -1;
 fd_set current_sockets, ready_sockets;
 int max_sockets_fd = -1;
 
-const char default_response[] = "\033[32m$> \033[0m";
+const char terminal_response[] = "\033[32m$> \033[0m";
 
 void new_socket_fd()
 {
@@ -47,18 +47,19 @@ void accept_connection()
     debug_print("connection accepted from [%d]\n", client_socket);
     FD_SET(client_socket, &current_sockets);
     if(client_socket > max_sockets_fd) max_sockets_fd = client_socket;
-    send_message(client_socket, default_response);
+    help_command(client_socket, NULL);
+    send_terminal_message(client_socket);
 }
 
 void handle_connection(int client_socket)
 {
     char buf[MAX_BUFFER_SIZE];
+    memset(buf, 0, MAX_BUFFER_SIZE);
     int n;
     check_error(n = recv(client_socket, buf, MAX_BUFFER_SIZE, 0));
     debug_print("received message '%.*s' from client [%d]\n", n-2, buf, client_socket);
-
     execute_command(client_socket, buf);
-    send_message(client_socket, default_response);
+    send_terminal_message(client_socket);
 }
 
 void send_message(int client_socket, const char* message)
@@ -67,6 +68,11 @@ void send_message(int client_socket, const char* message)
     if(message[n-1] == '\n') n--;
     debug_print("sending message '%.*s' to client [%d]\n", n, message, client_socket);
     send(client_socket, message, strlen(message), 0);
+}
+
+void send_terminal_message(int client_socket)
+{
+    send_message(client_socket, terminal_response);
 }
 
 void end_connection(int client_socket)

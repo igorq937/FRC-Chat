@@ -5,5 +5,6 @@
 #include "room.h"
 
 void execute_command(int client_socket, char* command);
+void help_command(int client_socket, char* command);
 
 #endif // COMMAND_H
