@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{listings}
 \usepackage[bottom=2.0cm,top=2.0cm,left=2.0cm,right=2.0cm]{geometry}
 \usepackage[portuges]{babel}
 \usepackage{indentfirst}
@@ -86,11 +87,40 @@ Este projeto foi desenvolvido na linguagem C e faz o uso das bibliotecas socket 
 
 \subsection{Organização da equipe}
 
+Nos reunimos inicialmente para entender o problema e
+buscar a melhor forma de trabalharmos juntos na solução. Nossas reuniões ocorreram via Discord, desenvolvemos o código na ferramenta VSCode e usamos a extensão Live Share da própria ferramenta para podermos contribuir simultaneamente no código. Em algumas reuniões trabalhamos em pares, pois nem todos os membros estavam disponíveis nos mesmos dias e horários. Por fim, na elaboração do relatório e da apresentação todos os membros estavam disponíveis.
+
 \section{Descrição da solução}
+\subsection{Socket}
+
+Este código implementa um servidor TCP básico usando sockets e o select em linguagem C. Ele cria um servidor que aguarda conexões de clientes, recebe mensagens dos clientes, executa comandos e envia respostas de volta aos clientes. Ele contém várias funções responsáveis por diferentes etapas do processo de comunicação entre o servidor e os clientes. No início do código, são declaradas algumas variáveis globais que serão utilizadas ao longo do programa, como o socket do servidor, conjuntos de sockets e o valor máximo de descritores de sockets.
+
+\subsection{Room}
+
+Este código define duas estruturas de dados: "person t" e "room t", que representam uma pessoa e uma sala, respectivamente. Suas funções permitem que os clientes se conectem a salas de chat, interajam com outras pessoas presentes na mesma sala e enviem mensagens para a sala. O código mantém o controle das salas disponíveis, das pessoas conectadas e de suas respectivas salas.
+
+\subsection{Command}
+
+O código fornecido implementa o sistema de comandos para o chat. Ele define várias funções que são mapeadas para comandos específicos, bem como uma estrutura de dados chamada "command t" que associa os comandos às suas respectivas funções. Além disso, existe a função "execute command", que recebe um comando e o cliente associado e executa a função correspondente ao comando.
+
+\subsection{Main}
+
+Este código é iniciado abrindo um socket, configurando-o para reutilizar o endereço e associando-o a um IP e porta específicos. Em seguida, o servidor entra em um loop principal, onde aguarda conexões de clientes. Durante esse tempo, as salas de chat são inicializadas e o servidor está pronto para atender várias solicitações de clientes simultaneamente. O programa continuará em execução indefinidamente, até que seja encerrado manualmente. A "Main" estabelece a base do servidor de chat, cuidando das configurações de rede e da espera por conexões de clientes.
 
 \section{Conclusão}
 
+Tivemos algumas dificuldades iniciais de entendimento com função select, buscamos algumas outras fontes de conhecimento como vídeos para compreender melhor o uso do select além da referência sugerida pelo professor. No entanto, alguns colegas tiveram uma compreensão melhor sobre o select, e os pareamentos contribuiram para o compartilhamento e nivelamento de conhecimento.
+
+\subsection{Nathalia}
+
+Este projeto foi mais enriquecedor em termos de aquisição de conhecimento do que os outros projetos. Permitiu uma compreensão prática sobre o select, permitiu a integração dos conceitos de redes de computadores com outros conhecimentos adquiridos no curso de engenharia de software. Além disso, as discussões durante as reuniões entre os membros do grupo e a prática de programação em dupla contribuiram para o compartilhamento de conhecimento.
+NOTA: 10
+
+
 \section{Referências}
+
+The Linux man-pages project. select(2) - linux manual page. Acessado em 2023.
+Disponível em: https://man7.org/linux/man-pages/man2/select.2.html. 
 
 \end{document}
 
