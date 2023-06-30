@@ -75,10 +75,10 @@ void list_people(int client_socket)
         return;
     }
 
-    for(int i = 0; i < room->capacity; i++) {
+    for(int i = 0, peopleCounter = 0; i < room->capacity; i++) {
         if(room->people[i] != 0) {
             char* message = malloc(sizeof(char) * MAX_MSG_SIZE);
-            sprintf(message, "%d: %s\n", room->people[i], people[room->people[i]].name);
+            sprintf(message, "%d: %s\n", ++peopleCounter, people[room->people[i]].name);
             send_message(client_socket, message);
             free(message);
         }
