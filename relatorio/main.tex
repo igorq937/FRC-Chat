@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+\usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[bottom=2.0cm,top=2.0cm,left=2.0cm,right=2.0cm]{geometry}
+\usepackage[portuges]{babel}
+\usepackage{indentfirst}
+\usepackage{hyperref}  %%%%
+\hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black} 
+\addbibresource{referencias.bib}
+
+\begin{document}
+\title{Relatório Experimental}
+
+\begin{titlepage}
+	\begin{center}
+		\begin{figure}[htb!]
+			\begin{flushleft}
+				\includegraphics[width=3.9cm]{imagens/logo_unb.png}
+			\end{flushleft}
+		\end{figure}
+        \vspace{-2.5cm}
+        \hspace{2.1cm}\Large{\textbf{Universidade de Brasília}}\\
+        \hspace{2.1cm}\Large{Faculdade UnB Gama – FGA}\\
+        \hspace{2.1cm}\Large{Engenharia de Software}\\
+        
+        \vspace{200pt}
+        
+        \LARGE{\textbf{Chat em linguagem C usando o select()}}\\ 
+        %\Large{Chat com uso do select()}\\ 
+        
+        \vspace{160pt}
+            
+        \vspace{30pt} 
+        \hfill Giulia Lobo Barros \hspace{20pt} \\
+        \hfill Igor Queiroz Lima  \hspace{20pt} \\
+        \hfill Nathalia Lorena Cardoso Dias \hspace{20pt}\\
+        \hfill Thiago Aparecido Lopes Santos \hspace{20pt}\\
+
+        \vspace{25pt}
+        \hfill {Professor:}\\
+        \hfill Fernando William Cruz\\
+        
+        
+        \vspace{\fill}
+        \LARGE \bf{\today}
+          
+	\end{center}
+\end{titlepage}
+
+\newpage
+
+%\Large\tableofcontents
+%\thispagestyle{empty}
+             %%%%%
+%\newpage
+\pagenumbering{arabic}
+\large
+
+\section{Introdução}
+
+Este projeto faz parte da disciplina Fundamentos de Redes de Computadores, da Universidade de Brası́lia, campus Gama (UnB FGA) orientada pelo professor Fernando William Cruz. O projeto tem como objetivo, permitir a compreensão da arquitetura de aplicações de rede (segundo arquitetura TCP/IP) que envolvam gerência de diálogo. Para isso, os alunos devem construir uma aplicação que disponibilize salas de bate-papo virtuais, nas quais os clientes podem ingressar e interagir.
+
+\section{Objetivos}
+
+O objetivo do projeto é criar salas de bate-papo virtuais que atendam
+às seguintes especificações:
+
+ \begin{enumerate}
+   \item A criação de salas virtuais de bate-papo com nome da sala e limite de participantes.
+   \item Listar participantes de uma determinada sala.
+    \item Permitir ingresso de clientes, com um identificador, em uma sala existente, de acordo com o limite admitido para a sala.
+    \item Saída de clientes de uma sala em que estava participando.
+    \item Diálogo entre os clientes das salas.
+    \item Sugere-se que o servidor contenha apenas funções de gerenciamento de diálogo (fazendo o repasse das
+    interações, de acordo com as salas) e funções administrativas mínimas (inclusão/exclusão de salas, ingresso/saída de usuários de uma sala, etc.) para simplificar o projeto.
+    \item O diálogo entre cliente e servidor deve ser feito usando a System call select() para organização dos diálogos. Os clientes, por sua vez, devem conhecer o endereço do servidor a fim de se registrarem para participação em diálogos.
+\item A aplicação deve ser construída em linguagem C.
+
+\end{enumerate}
+
+\section{Metodologia}
+
+Este projeto foi desenvolvido na linguagem C e faz o uso das bibliotecas socket e select. Foi criado um arquivo chamado "socket.c", que gerencia toda a conexão entre servidor e clientes. Também foi criado um arquivo "room.c" que é responsável pela criação e gerência das salas. Além disso, foi criado um arquivo "command.c" onde são especificados e tratados os comandos que o usuário pode digitar. Por fim, o arquivo "main.c" que invoca as funções principais para o funcionamento do chat.
+
+\subsection{Organização da equipe}
+
+\section{Descrição da solução}
+
+\section{Conclusão}
+
+\section{Referências}
+
+\end{document}
+
