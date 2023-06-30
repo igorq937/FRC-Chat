@@ -50,6 +50,7 @@ void remove_room(int room_id)
     room->name = NULL;
     room->num_people = 0;
     room->capacity = 0;
+    free(room->people);
     room->people = 0;
 }
 
@@ -119,7 +120,7 @@ void leave_room(int client_socket)
     person_t* person = &people[client_socket];
     room_t* room = &rooms[person->joined_room];
 
-    if(room->num_people == 0) {
+    if(person->joined_room == 0) {
         send_message(client_socket, "you are not in a room\n");
         return;
     }
