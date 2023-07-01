@@ -78,8 +78,7 @@ void delete_command(int client_socket, char* command)
         return;
     }
     
-    remove_room(room_id);
-    send_message(client_socket, "room deleted\n");
+    remove_room(client_socket, room_id);
 }
 
 void help_command(int client_socket, __attribute__((unused)) char* command)

@@ -42,9 +42,15 @@ void add_room(char* name, int capacity)
     }
 }
 
-void remove_room(int room_id)
+void remove_room(int client_socket, int room_id)
 {
     room_t* room = &rooms[room_id];
+
+    if(room->num_people > 0) {
+        send_message(client_socket, "room is not empty\n");
+        return;
+    }
+
     room->id = 0;
     free(room->name);
     room->name = NULL;
@@ -52,6 +58,7 @@ void remove_room(int room_id)
     room->capacity = 0;
     free(room->people);
     room->people = 0;
+    send_message(client_socket, "room deleted\n");
 }
 
 void list_rooms(int client_socket)

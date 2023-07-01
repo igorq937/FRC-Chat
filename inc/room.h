@@ -11,7 +11,7 @@
 
 void init_rooms();
 void add_room(char* name, int capacity);
-void remove_room(int room_id);
+void remove_room(int client_socket, int room_id);
 void list_rooms(int client_socket);
 void list_people(int client_socket);
 void join_room(int client_socket, int room_id, char* name);
